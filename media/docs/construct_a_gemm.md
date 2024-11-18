@@ -44,13 +44,13 @@ uint32_t local_range_m = (wg_tile_m + sg_tile_m - 1) / sg_tile_m;
 uint32_t local_range_n = (wg_tile_n + sg_tile_n - 1) / sg_tile_n;
 
 //nd_range and work-group shape
-cl::sycl::range<3> group_range {1, group_range_m, group_range_n};
-cl::sycl::range<3> local_range {1, local_range_m, local_range_n};
+sycl::range<3> group_range {1, group_range_m, group_range_n};
+sycl::range<3> local_range {1, local_range_m, local_range_n};
 
-cl::sycl::nd_range<3> nd_range(group_range * local_range, local_range);
+sycl::nd_range<3> nd_range(group_range * local_range, local_range);
 
 //Recommended that you use the helper function to caculate nd_range, it is convenient.
-cl::sycl::nd_range<3> get_nd_range(uint32_t matrix_m, uint32_t matrix_n);
+sycl::nd_range<3> get_nd_range(uint32_t matrix_m, uint32_t matrix_n);
 ```
 In this algorithm, the number of workgroups is primarily determined by the workgroup tile size. However, this can become problematic if the output shape is not sufficiently large. On the other hand, considering the large K dimension, we can split it to create more workgroups. As illustrated in the code snippet above, the first parameter of `group_range` is set to 1. By splitting the K dimension into 4, the total number of workgroups increases fourfold, as shown in the accompanying diagram. This approach is commonly referred to as splitK.
 
