@@ -22,4 +22,4 @@ add_executable(${TARGET} stream_k_gemm.cpp)
 target_link_options(${TARGET} PRIVATE ${XETLA_KERNEL_FLAGS})
 # Disable vector combine, to remove redundant loads and stores
 #target_compile_options(${TARGET} PRIVATE -mllvm -disable-vector-combine -fsycl -fsycl-targets=spir64_gen)
-
+target_link_libraries(${TARGET} GTest::gtest GTest::gtest_main)

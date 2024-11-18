@@ -2,13 +2,16 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${CMAKE_SOURCE_DIR}/tests)
 include_directories(${CMAKE_SOURCE_DIR}/tests/unit)
 
+enable_testing()
+
 function(add_unit_test target kernel_func_file test_host)
     set(TARGET ${target})
 
     # build test
     add_executable(${TARGET} ${test_host})
 
-    target_include_directories(${TARGET} PRIVATE ${CMAKE_SOURCE_DIR}/tests/unit/${TARGET})
+    target_link_libraries(${TARGET} GTest::gtest GTest::gtest_main)
+
     set_target_properties(${TARGET} PROPERTIES FOLDER tests/unit/)
 
     # Test time out, default 1 minutes
@@ -40,4 +43,3 @@ add_subdirectory(reg_reduce)
 add_subdirectory(math_general)
 add_subdirectory(epilogue_tile_op)
 add_subdirectory(bit_mask_manipulation)
-

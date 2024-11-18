@@ -9,6 +9,8 @@ function(add_integration_test target "host_cpp")
     # build test
     add_executable(${TARGET} ${host_cpp})
 
+    target_link_libraries(${TARGET} GTest::gtest GTest::gtest_main)
+
     set_target_properties(${TARGET} PROPERTIES FOLDER tests/integration/)
 
     # Test time out, default 5 minutes
