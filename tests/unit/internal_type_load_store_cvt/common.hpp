@@ -15,6 +15,8 @@
 *******************************************************************************/
 #pragma once
 
+#include <cmath>
+
 #include "kernel_func.hpp"
 
 template <typename T>
